@@ -1,17 +1,19 @@
 #include <cstdint>
+#include <fstream>
 #include <iostream>
 
-#include <interpreter.h>
+#include "memory.h"
 
-void run(){
-    std::uint32_t eax, ebx, ecx, edx;
-}
+int main(int argc, char* argv[]){
+    Memory RAM;
+    
+    RAM.virtualMemory[65535] = 0xFF;
+    RAM.virtualMemory[65534] = 0xEE;
+    RAM.virtualMemory[65533] = 0xDD;
+    RAM.virtualMemory[65532] = 0xCC;
+    RAM.eax = 0xFFFF;
 
-int main(int argc, char *argv[]){
-    if(argc != 2){
-        std::cout << "You did something wrong";
-        return 1;
-    }
-    run();
+    std::cout << RAM.valueAtLocation(RAM.eax);
+    
     return 0;
 }

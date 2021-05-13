@@ -26,6 +26,7 @@ JNE  txt - Jumps to .txt in file if above CMP is not equal
 JE   txt - Jumps to .txt in file if above CMP is equal
 JZ   txt - Functionally same as above
 CALL txt - Runs the function txt
+RET      - Returns to stack pointer
 
 ADD:
 XOR
