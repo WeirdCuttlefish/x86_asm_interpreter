@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <iostream>
 
 class Memory{
     public:
@@ -30,33 +31,25 @@ class Memory{
         virtualMemory[destination - 3] = virtualMemory[start - 3];
     }
 
-    //Stack -- NEEDS UPDATE!
+    //Stack
     void pushStackFrame(){
-        copy(esp, ebp);   //Store old EBP 
-        ebp = esp-4;      //Frame pointer now at the old stack pointer-4
-        copy(ebp-4 , eax);//Kinda hacky solution -- will rewrite to make accurate
-        eax = ebp-4;
-        copy(ebp-8 , ebx);
-        ebx = ebp-8;
-        copy(ebp-12, ecx);
-        ecx = ebp-12;
-        copy(ebp-16, edx);
-        edx = ebp-16;
+        copy(esp, ebp);
+        ebp = esp-4;
+        esp = ebp-4;
     }
 
     void popStackFrame(){
+        esp = ebp+4;
         ebp = valueAtLocation(ebp+4);
-        eax = ebp - 4;
-        ebx = ebp - 8;
-        ecx = ebp - 12;
-        edx = ebp - 16;
     }
 
-    void push(int& x){
-        //ADD IN STACK UPDATE
+    void push(int x){
+        copy(esp, x);
+        esp -= 4;
     }
-    void pop (int& x){
-        //ADD IN STACK UPDATE
+    void pop(int& x){
+        x = valueAtLocation(esp+4);
+        esp += 4;
     }
 
     //Heap -- NEEDS UPDATE TO MAKE DYNAMIC!!!
